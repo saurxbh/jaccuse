@@ -21,3 +21,18 @@ assert len(PLACES) == 9
 # First letter must be unique
 assert len(PLACE_FIRST_LETTERS.keys()) == len(PLACES)
 
+knownSuspectsAndItems = []
+# visitedPlaces: Keys=places, values=strings of suspects and items there
+visitedPlaces = {}
+currentLocation = 'TAXI' # Start the game in the taxi
+accusedSuspects = [] # Accused suspects won't offer clues
+liars = random.sample(SUSPECTS, random.randint(3,4))
+accusationsLeft = 3 # You can accuse up to 3 people
+culprit = random.choice(SUSPECTS)
+
+# Common indices link these, e.g. SUSPECTS[0] and ITEMS[0] are at PLACES[0]
+random.shuffle(SUSPECTS)
+random.shuffle(ITEMS)
+random.shuffle(PLACES)
+
+
