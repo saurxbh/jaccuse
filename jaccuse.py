@@ -35,4 +35,24 @@ random.shuffle(SUSPECTS)
 random.shuffle(ITEMS)
 random.shuffle(PLACES)
 
+# Create data structures for clues the truth-tellers give about each item and suspect
+# clues: Keys=Suspects being asked for a clue, value="clue dictionary".
+clues = {}
+for i, interviewee in enumerate(SUSPECTS):
+    if interviewee in liars:
+        continue # Skip the liars for now
 
+    # This "clue dictionary" has keys=items & suspects, value=the clue given
+    clues[interviewee] = {}
+    clues[interviewee]['debug_liar'] = False # Useful for debugging
+    for item in ITEMS: # Select clue about each item
+        if random.randint(0, 1) == 0: # Tells where the item is
+            clues[interviewee][item] = PLACES[ITEMS.index(item)]
+        else: # tells who has the item
+            clues[interviewee][item] = SUSPECTS[ITEMS.index(item)]
+    for suspect in SUSPECTS: # Select clue about each suspect
+        if random.randint(0, 1) == 0: # Tells where the suspect is
+            clues[interviewee][suspect] = PLACES[SUSPECTS.index(suspect)]
+        else: # tells what item the suspect has
+            clues[interviewee][suspect] = ITEMS[SUSPECTS.index(suspect)]
+            
