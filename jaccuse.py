@@ -67,4 +67,85 @@ for i, interviewee in enumerate(SUSPECTS):
 
     # This interviewee is a liar and gives wrong clues
     for item in ITEMS:
-        if random.randint(0, 1) == 0
+        if random.randint(0, 1) == 0: # Select a random (wrong) place clue
+            while True: # Lies about the place
+                clues[interviewee][item] = random.choice(PLACES)
+                if clues[interviewee][item] != PLACES[ITEMS.index(item)]:
+                    # break out of the loop when wrong clue is selected
+                    break
+        else: # Select a random (wrong) suspect clue
+            while True:
+                clues[interviewee][item] = random.choices(SUSPECTS)
+                if clues[interviewee][item] != SUSPECTS[ITEMS.index(item)]:
+                    # break out of the loop when wrong clue is selected
+                    break
+    for suspect in SUSPECTS:
+        if random.randint(0, 1) == 0: # Select a random (wrong) place clue
+            while True:
+                clues[interviewee][suspect] = random.choice(PLACES)
+                if clues[interviewee][suspect] != PLACES[SUSPECTS.index(suspect)]:
+                    # break out of the loop when wrong clue is selected
+                    break
+        else: # Select a random (wrong) item clue
+            while True:
+                clues[interviewee][suspect] = random.choice(ITEMS)
+                if clues[interviewee][suspect] != ITEMS[SUSPECTS.index(suspect)]:
+                    # break out of the loop when wrong clue is selected
+                    break
+
+# Create the data structure for clues given when asked about Zophie:
+zophieClues = {}
+for interviewee in random.sample(SUSPECTS, random.randint(3, 4)):
+    kindOfClue = random.randint(1, 3)
+    if kindOfClue == 1:
+        if interviewee not in liars:
+            # They tell you who has Zophie
+            zophieClues[interviewee] = culprit
+        elif interviewee in liars:
+            while True:
+                # Select a (wrong) suspect clue
+                zophieClues[interviewee] = random.choice(SUSPECTS)
+                if zophieClues[interviewee] != culprit:
+                    # Break out of the loop when wrong clue is selected
+                    break
+
+    elif kindOfClue == 2:
+        if interviewee not in liars:
+            # They tell you where Zophie is
+            zophieClues[interviewee] = PLACES[SUSPECTS.index(culprit)]
+        elif interviewee in liars:
+            while True:
+                # Select a (wrong) place clue
+                zophieClues[interviewee] = random.choice(PLACES)
+                if zophieClues[interviewee] != PLACES[SUSPECTS.index(culprit)]:
+                    # Break out of the loop when wrong clue is selected
+                    break
+
+    elif kindOfClue == 3:
+        if interviewee not in liars:
+            # They tell you what item Zophie is near
+            zophieClues[interviewee] = ITEMS[SUSPECTS.index(culprit)]
+        elif interviewee in liars:
+            while True:
+                # Select a (wrong) item clue
+                zophieClues[interviewee] = random.choice(ITEMS)
+                if zophieClues[interviewee] != ITEMS[SUSPECTS.index(culprit)]:
+                    # Break out of the loop when wrong clue is selected
+                    break
+            
+# Uncomment to view the clue data structure
+#import pprint
+#pprint.pprint(clues)
+#pprint.pprint(zophieClues)
+#print("Culprit:", culprit)
+# START OF THE GAME
+print('''J'ACCUSE! (a mystery game)
+You are the world-famous detective, Mathilde Camus.
+ZOPHIE THE CAT has gone missing, and you must sift through the clues.
+Suspects either always tell lies, or always tell the truth. Ask them
+about other people, places, and items to see if the details they give are
+truthful and consistent with your observations. Then you will know if
+their clue about ZOPHIE THE CAT is true or not. Will you find ZOPHIE THE
+CAT in time and accuse the guilty party?
+''')
+input('Press Enter to begin...')
