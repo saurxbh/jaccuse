@@ -55,4 +55,16 @@ for i, interviewee in enumerate(SUSPECTS):
             clues[interviewee][suspect] = PLACES[SUSPECTS.index(suspect)]
         else: # tells what item the suspect has
             clues[interviewee][suspect] = ITEMS[SUSPECTS.index(suspect)]
-            
+
+# Create data structures about the clues the liars give about each item and suspect
+for i, interviewee in enumerate(SUSPECTS):
+    if interviewee not in liars:
+        continue # We've already handled the truth-tellers
+
+    # This 'clues dictionary' has keys=items & suspects, and values=the clue given
+    clues[interviewee] = {}
+    clues[interviewee]['debug_liar'] = True # Useful for debugging
+
+    # This interviewee is a liar and gives wrong clues
+    for item in ITEMS:
+        if random.randint(0, 1) == 0
