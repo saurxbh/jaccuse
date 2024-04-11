@@ -149,3 +149,20 @@ their clue about ZOPHIE THE CAT is true or not. Will you find ZOPHIE THE
 CAT in time and accuse the guilty party?
 ''')
 input('Press Enter to begin...')
+
+startTime = time.time()
+endTime = startTime + TIME_TO_SOLVE
+
+# Main game loop
+while True:
+    if time.time() > endTime or accusationsLeft == 0:
+        # Handle game over condtition
+        if time.time() > endTime:
+            print('You have run out of time!')
+        elif accusationsLeft == 0:
+            print('You have accused too many innocent people!')
+        culpritIndex = SUSPECTS.index(culprit)
+        print('It was {} with {} at {} who catnapped her!'.format(culprit, ITEMS[culpritIndex],PLACES[culpritIndex]))
+        print('Better luck next time, Detective!')
+        sys.exit()
+
