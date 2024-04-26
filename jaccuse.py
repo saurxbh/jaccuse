@@ -199,3 +199,11 @@ while True:
     thePersonHere = SUSPECTS[currentLocationIndex]
     theItemHere = ITEMS[currentLocationIndex]
     print(' {} with the {} is here.'.format(thePersonHere, theItemHere))
+
+    # Add the suspect and item at this place to our list of known suspects and items
+    if thePersonHere not in knownSuspectsAndItems:
+        knownSuspectsAndItems.append(thePersonHere)
+    if theItemHere not in knownSuspectsAndItems:
+        knownSuspectsAndItems.append(theItemHere)
+    if currentLocation not in visitedPlaces.keys():
+        visitedPlaces[currentLocation] = '({}, {})'.format(thePersonHere.lower(), theItemHere.lower())
