@@ -198,7 +198,7 @@ while True:
     currentLocationIndex = PLACES.index(currentLocation)
     thePersonHere = SUSPECTS[currentLocationIndex]
     theItemHere = ITEMS[currentLocationIndex]
-    print(' {} with the {} is here.'.format(thePersonHere, theItemHere))
+    print('{} with the {} is here.'.format(thePersonHere, theItemHere))
 
     # Add the suspect and item at this place to our list of known suspects and items
     if thePersonHere not in knownSuspectsAndItems:
@@ -217,3 +217,34 @@ while True:
         input('Press Enter to continue...')
         currentLocation = 'TAXI'
         continue # Go to the start of the main game loop
+
+    # Display menu of known suspects & items to ask about
+    print()
+    print('(J) J\'ACCUSE! ({} accusations left)'.format(accusationsLeft))
+    print('(Z) Ask if they know where ZOPHIE THE CAT is.')
+    print('(T) Go back to the TAXI.')
+    for i, suspectOrItem in enumerate(knownSuspectsAndItems):
+        print('({}) Ask about {}'.format(i + 1, suspectOrItem))
+
+    while True: # Keep asking until a valid response is given
+        response = input('> ').upper()
+        if response in 'JZT' or (response.isdecimal() and 0 < int(response) <= len(knownSuspectsAndItems)):
+            break
+
+    if response == 'J': # Player accuses this suspect
+        accusationsLeft -= 1 # Use up an accusation
+        if thePersonHere == culprit:
+            # You have accused the correct suspect
+            print('You\'ve cracked the case, Detective!')
+            print('It was {} who had catnapped ZOPHIE THE CAT.'.format(thePersonHere))
+            minutesTaken = int(time.time() - startTime) // 60
+            secondsTaken = int(time.time() - startTime) % 60
+            print('Good job! You solved it in {} min, {} sec.'.format(minutesTaken, secondsTaken))
+            sys.exit()
+        else:
+            # You have accused the wrong suspect
+            accusedSuspects.append(thePersonHere)
+            print('You have accused the wrong suspect, Detective!')
+            print('They won\'t help you with any more clues.')
+            print('You go back to your TAXI.')
+            currentLocation = 'TAXI'
