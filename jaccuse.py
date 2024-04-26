@@ -166,3 +166,30 @@ while True:
         print('Better luck next time, Detective!')
         sys.exit()
 
+    print()
+    minutesLeft = int(endTime - time.time()) // 60
+    secondsLeft = int(endTime - time.time()) % 60
+    print('Time left: {} min, {} sec'.format(minutesLeft, secondsLeft))
+
+    if currentLocation == 'TAXI':
+        print('You are in your taxi, where do you want to go?')
+        for place in sorted(PLACES):
+            placeInfo = ''
+            if place in visitedPlaces:
+                placeInfo = visitedPlaces[place]
+            nameLabel = '(' + place[0] + ')' + place[1:]
+            spacing = " " * (LONGEST_PLACE_NAME_LENGTH - len(place))
+            print('{} {}{}'.format(nameLabel, spacing, placeInfo))
+        print('(Q)UIT GAME')
+        while True: # Keep asking until a valid response is given
+            response = input('> ').upper()
+            if response == '':
+                continue # ask again
+            if response == 'Q':
+                print('Thanks for playing!')
+                sys.exit()
+            if response in PLACE_FIRST_LETTERS.keys():
+                break
+        currentLocation = PLACE_FIRST_LETTERS[response]
+        continue # Go back to the start of the main game loop
+
