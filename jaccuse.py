@@ -248,3 +248,29 @@ while True:
             print('They won\'t help you with any more clues.')
             print('You go back to your TAXI.')
             currentLocation = 'TAXI'
+
+    elif response == 'Z': # Player asks about Zophie
+        if thePersonHere not in zophieClues:
+            print('"I don\'t know anything about ZOPHIE THE CAT."')
+        elif thePersonHere in zophieClues:
+            print('They give you this clue: "{}"'.format(zophieClues[thePersonHere]))
+            # Add non-place clues to the list of known things
+            if zophieClues[thePersonHere] not in knownSuspectsAndItems and zophieClues[thePersonHere] not in PLACES:
+                knownSuspectsAndItems.append[zophieClues[thePersonHere]]
+
+    elif response == 'T': # Player goes back to the taxi
+        currentLocation = 'TAXI'
+        continue # Go back to the start of the main game loop
+
+    else: # Player asks about a suspect or item
+        thingBeingAskedAbout = knownSuspectsAndItems[int(response) - 1]
+        if thingBeingAskedAbout in (thePersonHere, theItemHere):
+            print('They give you this clue: "No Comment."')
+        else:
+            print('They give you this clue: "{}"'.format(clues[thePersonHere][thingBeingAskedAbout]))
+            # Add non-place clues to the list of known things
+            if clues[thePersonHere][thingBeingAskedAbout] not in knownSuspectsAndItems and clues[thePersonHere][thingBeingAskedAbout] not in PLACES:
+                knownSuspectsAndItems.append(clues[thePersonHere][thingBeingAskedAbout])
+
+    input('Press Enter to continue...')
+
