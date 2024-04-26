@@ -207,3 +207,13 @@ while True:
         knownSuspectsAndItems.append(theItemHere)
     if currentLocation not in visitedPlaces.keys():
         visitedPlaces[currentLocation] = '({}, {})'.format(thePersonHere.lower(), theItemHere.lower())
+
+    # If the player has accused this person wrongly before, they won't give any clues
+    if thePersonHere in accusedSuspects:
+        print('They are offended that you accused them.')
+        print('They will not help with your investigation.')
+        print('You go back to your TAXI.')
+        print()
+        input('Press Enter to continue...')
+        currentLocation = 'TAXI'
+        continue # Go to the start of the main game loop
