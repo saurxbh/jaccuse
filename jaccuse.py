@@ -193,3 +193,9 @@ while True:
         currentLocation = PLACE_FIRST_LETTERS[response]
         continue # Go back to the start of the main game loop
 
+    # At a place, player can ask for clues
+    print('You are at the {}.'.format(currentLocation))
+    currentLocationIndex = PLACES.index(currentLocation)
+    thePersonHere = SUSPECTS[currentLocationIndex]
+    theItemHere = ITEMS[currentLocationIndex]
+    print(' {} with the {} is here.'.format(thePersonHere, theItemHere))
